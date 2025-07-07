@@ -20,28 +20,22 @@
 #include <pcl/pcl_macros.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-
 #include <sensor_msgs/PointCloud2.h>
 
-namespace reve
-{
-struct RadarPointCloudType
-{
+namespace reve {
+struct RadarPointCloudType {
   PCL_ADD_POINT4D;      // position in [m]
   float snr_db;         // CFAR cell to side noise ratio in [dB]
   float v_doppler_mps;  // Doppler velocity in [m/s]
-  float noise_db;       // CFAR noise level of the side of the detected cell in [dB]
-  float range;          // range in [m]
+  float noise_db;  // CFAR noise level of the side of the detected cell in [dB]
+  float range;     // range in [m]
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-struct mmWaveCloudType
-{
+struct mmWaveCloudType {
   PCL_ADD_POINT4D;
-  union
-  {
-    struct
-    {
+  union {
+    struct {
       float intensity;
       float velocity;
     };
@@ -50,8 +44,23 @@ struct mmWaveCloudType
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-bool pcl2msgToPcl(const sensor_msgs::PointCloud2& pcl_msg, pcl::PointCloud<RadarPointCloudType>& scan);
+struct coloradarCloudType {
+  PCL_ADD_POINT4D;
+  union {
+    struct {
+      float intensity;
+      float range;
+      float doppler;
+    };
+    float data_c[4];
+  };
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+};
 
-bool pclToPcl2msg(pcl::PointCloud<RadarPointCloudType> scan, sensor_msgs::PointCloud2& pcl_msg);
+bool pcl2msgToPcl(const sensor_msgs::PointCloud2& pcl_msg,
+                  pcl::PointCloud<RadarPointCloudType>& scan);
+
+bool pclToPcl2msg(pcl::PointCloud<RadarPointCloudType> scan,
+                  sensor_msgs::PointCloud2& pcl_msg);
 
 }  // namespace reve
