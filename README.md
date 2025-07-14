@@ -1,5 +1,8 @@
 # REVE - Radar Ego Velocity Estimator
 
+> ⚠️ Note: This repository includes minor modifications to support additional public radar datasets (e.g., input point cloud format).  
+> These changes do not alter the core logic and are made in accordance with the GPLv3 license.
+
 REVE - Radar Ego Velocity Estimator is an efficient C++ implementation for ego velocity estimation using radar scans. Such scans (=3D point cloud) can be
 measured using modern mmWave radar sensors. Allows for robust and accurate ego velocity estimation even in challenging conditions (darkness, fog, smoke) as radar is not
 affected by such conditions!
